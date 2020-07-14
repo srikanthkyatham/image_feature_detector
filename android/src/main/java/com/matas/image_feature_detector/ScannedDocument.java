@@ -1,8 +1,11 @@
 package com.matas.image_feature_detector;
 
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Size;
+
+import java.util.ArrayList;
 
 /**
  * Created by allgood on 05/03/16.
@@ -14,6 +17,7 @@ public class ScannedDocument {
     public Quadrilateral quadrilateral;
     public Point[] previewPoints;
     public Size previewSize;
+    public ArrayList<MatOfPoint> contours;
 
     public ScannedDocument(Mat original) {
         this.original = original;

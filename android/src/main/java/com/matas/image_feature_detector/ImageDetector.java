@@ -151,8 +151,7 @@ class ImageDetector {
       stream.close();
 
       JSONObject outer = new JSONObject();
-      // outer.put("foundFeatures",
-      // ImageDetector.serializeRectangleData(foundContours, image));
+      outer.put("foundFeatures", ImageDetector.serializeRectangleData(foundContours(doc.contours), image));
       outer.put("filePath", savePath);
 
       return outer.toString();
@@ -164,6 +163,29 @@ class ImageDetector {
       return null;
     }
 
+  }
+
+  private static MatOfPoint2f foundContours(ArrayList<MatOfPoint> contours) {
+    double maxArea = 0;
+    MatOfPoint2f maxApprox = null;
+
+    for (MatOfPoint contour : contours) {
+      MatOfPoint2f maxContour2f = new MatOfPoint2f(contour.toArray());
+      double peri = Imgproc.arcLength(maxContour2f, true);
+      MatOfPoint2f approx = new MatOfPoint2f();
+      Imgproc.approxPolyDP(maxContour2f, approx, 0.04 * peri, true);
+
+      if (approx.total() == 4) {
+        double area = Imgproc.contourArea(contour);
+
+        if (area > maxArea) {
+          maxApprox = approx;
+          maxArea = area;
+        }
+      }
+    }
+
+    return maxApprox;
   }
 
   private static MatOfPoint2f findContoursFromImage(Mat source) {
@@ -203,6 +225,7 @@ class ImageDetector {
     ArrayList<MatOfPoint> contours = findContours(inputRgba);
 
     ScannedDocument sd = new ScannedDocument(inputRgba);
+    sd.contours = contours;
 
     Quadrilateral quad = getQuadrilateral(contours, inputRgba.size());
 
