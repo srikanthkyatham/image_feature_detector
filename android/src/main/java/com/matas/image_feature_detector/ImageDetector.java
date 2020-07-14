@@ -199,7 +199,7 @@ class ImageDetector {
   }
 
   // new code
-  private ScannedDocument detectDocument(Mat inputRgba) {
+  private static ScannedDocument detectDocument(Mat inputRgba) {
     ArrayList<MatOfPoint> contours = findContours(inputRgba);
 
     ScannedDocument sd = new ScannedDocument(inputRgba);
@@ -227,7 +227,7 @@ class ImageDetector {
     return sd.setProcessed(doc);
   }
 
-  private Quadrilateral getQuadrilateral(ArrayList<MatOfPoint> contours, Size srcSize) {
+  private static Quadrilateral getQuadrilateral(ArrayList<MatOfPoint> contours, Size srcSize) {
 
     double ratio = srcSize.height / 500;
     int height = Double.valueOf(srcSize.height / ratio).intValue();
@@ -255,7 +255,7 @@ class ImageDetector {
     return null;
   }
 
-  private Point[] sortPoints(Point[] src) {
+  private static Point[] sortPoints(Point[] src) {
 
     ArrayList<Point> srcPoints = new ArrayList<>(Arrays.asList(src));
 
@@ -291,7 +291,7 @@ class ImageDetector {
     return result;
   }
 
-  private boolean insideArea(Point[] rp, Size size) {
+  private static boolean insideArea(Point[] rp, Size size) {
 
     int width = Double.valueOf(size.width).intValue();
     int height = Double.valueOf(size.height).intValue();
@@ -308,7 +308,7 @@ class ImageDetector {
     );
   }
 
-  private ArrayList<MatOfPoint> findContours(Mat src) {
+  private static ArrayList<MatOfPoint> findContours(Mat src) {
 
     Mat grayImage = null;
     Mat cannedImage = null;
@@ -350,7 +350,7 @@ class ImageDetector {
     return contours;
   }
 
-  private Mat fourPointTransform(Mat src, Point[] pts) {
+  private static Mat fourPointTransform(Mat src, Point[] pts) {
 
     double ratio = src.size().height / 500;
     int height = Double.valueOf(src.size().height / ratio).intValue();
@@ -389,7 +389,7 @@ class ImageDetector {
     return doc;
   }
 
-  private void enhanceDocument(Mat src) {
+  private static void enhanceDocument(Mat src) {
     boolean colorMode = false;
     double colorGain = 1.5;
     double colorBias = 0;
@@ -433,7 +433,7 @@ class ImageDetector {
    * @param src
    * @param threshold
    */
-  private void colorThresh(Mat src, int threshold) {
+  private static void colorThresh(Mat src, int threshold) {
     Size srcSize = src.size();
     int size = (int) (srcSize.height * srcSize.width) * 3;
     byte[] d = new byte[size];
