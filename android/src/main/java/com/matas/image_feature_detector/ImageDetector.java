@@ -26,6 +26,8 @@ import java.util.Comparator;
 import java.util.Collections;
 import java.util.Arrays;
 
+import android.util.Log;
+
 class ImageDetector {
   /**
    * Returns the version string for the current OpenCV implementation.
@@ -236,8 +238,20 @@ class ImageDetector {
       MatOfPoint c = quad.contour;
 
       sd.quadrilateral = quad;
-      // sd.previewPoints = mPreviewPoints;
-      // sd.previewSize = mPreviewSize;
+
+      Point[] rescaledPoints = new Point[4];
+
+      double ratio = inputRgba.size().height / 500;
+
+      for (int i = 0; i < 4; i++) {
+        int x = Double.valueOf(quad.points[i].x * ratio).intValue();
+        int y = Double.valueOf(quad.points[i].y * ratio).intValue();
+
+        rescaledPoints[i] = new Point(x, y);
+      }
+
+      sd.previewPoints = rescaledPoints;
+      sd.previewSize = inputRgba.size();
 
       doc = fourPointTransform(inputRgba, quad.points);
 
@@ -383,6 +397,10 @@ class ImageDetector {
     Point tr = pts[1];
     Point br = pts[2];
     Point bl = pts[3];
+    Log.d("Point tl", tl.toString());
+    Log.d("Point tr", tr.toString());
+    Log.d("Point bl", bl.toString());
+    Log.d("Point br", br.toString());
 
     double widthA = Math.sqrt(Math.pow(br.x - bl.x, 2) + Math.pow(br.y - bl.y, 2));
     double widthB = Math.sqrt(Math.pow(tr.x - tl.x, 2) + Math.pow(tr.y - tl.y, 2));
