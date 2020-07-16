@@ -226,6 +226,7 @@ class ImageDetector {
 
   // new code
   private static ScannedDocument detectDocument(Mat inputRgba) {
+    Log.d(TAG, "detectDocument ->");
     ArrayList<MatOfPoint> contours = findContours(inputRgba);
 
     ScannedDocument sd = new ScannedDocument(inputRgba);
@@ -263,11 +264,12 @@ class ImageDetector {
     }
 
     enhanceDocument(doc);
+    Log.d(TAG, "detectDocument <-");
     return sd.setProcessed(doc);
   }
 
   private static Quadrilateral getQuadrilateral(ArrayList<MatOfPoint> contours, Size srcSize) {
-
+    Log.d(TAG, "getQuadrilateral ->");
     double ratio = srcSize.height / 500;
     int height = Double.valueOf(srcSize.height / ratio).intValue();
     int width = Double.valueOf(srcSize.width / ratio).intValue();
@@ -280,17 +282,20 @@ class ImageDetector {
       Imgproc.approxPolyDP(c2f, approx, 0.02 * peri, true);
 
       Point[] points = approx.toArray();
+      Log.d(TAG, "points length %d" + String.valueOf(points.length));
 
       // select biggest 4 angles polygon
       if (points.length == 4) {
         Point[] foundPoints = sortPoints(points);
 
         if (insideArea(foundPoints, size)) {
+          Log.d(TAG, "inside area");
           return new Quadrilateral(c, foundPoints);
         }
+        Log.d(TAG, "outside area");
       }
     }
-
+    Log.d(TAG, "getQuadrilateral <-");
     return null;
   }
 
