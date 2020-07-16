@@ -29,6 +29,8 @@ import java.util.Arrays;
 import android.util.Log;
 
 class ImageDetector {
+  private static final String TAG = "ImageDetector";
+
   /**
    * Returns the version string for the current OpenCV implementation.
    *
@@ -397,10 +399,10 @@ class ImageDetector {
     Point tr = pts[1];
     Point br = pts[2];
     Point bl = pts[3];
-    Log.d("Point tl", tl.toString());
-    Log.d("Point tr", tr.toString());
-    Log.d("Point bl", bl.toString());
-    Log.d("Point br", br.toString());
+    Log.d(TAG, "Point tl" + tl.toString());
+    Log.d(TAG, "Point tr" + tr.toString());
+    Log.d(TAG, "Point bl" + bl.toString());
+    Log.d(TAG, "Point br" + br.toString());
 
     double widthA = Math.sqrt(Math.pow(br.x - bl.x, 2) + Math.pow(br.y - bl.y, 2));
     double widthB = Math.sqrt(Math.pow(tr.x - tl.x, 2) + Math.pow(tr.y - tl.y, 2));
