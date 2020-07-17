@@ -282,7 +282,7 @@ class ImageDetector {
       Imgproc.approxPolyDP(c2f, approx, 0.02 * peri, true);
 
       Point[] points = approx.toArray();
-      Log.d(TAG, "points length %d" + String.valueOf(points.length));
+      Log.d(TAG, "points length " + String.valueOf(points.length));
 
       // select biggest 4 angles polygon
       if (points.length == 4) {
