@@ -287,12 +287,13 @@ class ImageDetector {
       // select biggest 4 angles polygon
       if (points.length == 4) {
         Point[] foundPoints = sortPoints(points);
-
-        if (insideArea(foundPoints, size)) {
-          Log.d(TAG, "inside area");
-          return new Quadrilateral(c, foundPoints);
-        }
-        Log.d(TAG, "outside area");
+        Log.d(TAG, "inside area");
+        return new Quadrilateral(c, foundPoints);
+        /*
+         * if (insideArea(foundPoints, size)) {
+         * 
+         * return new Quadrilateral(c, foundPoints); } Log.d(TAG, "outside area");
+         */
       }
     }
     Log.d(TAG, "getQuadrilateral <-");
