@@ -149,7 +149,7 @@ class ImageDetector {
 
     try {
       FileOutputStream stream = new FileOutputStream(new File(savePath));
-      b.compress(Bitmap.CompressFormat.JEPG, 100, stream);
+      b.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
       stream.flush();
       stream.close();
