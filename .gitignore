@@ -887,3 +887,13 @@ DerivedData/
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+### Android studio generated files
+android/.classpath
+android/.settings/org.eclipse.buildship.core.prefs
+android/gradle
+example/.flutter*
+example/android/.settings/org.eclipse.buildship.core.prefs
+example/android/app/.classpath
+example/android/app/.settings/org.eclipse.buildship.core.prefs
+example/ios/Flutter/flutter_export_environment.sh
