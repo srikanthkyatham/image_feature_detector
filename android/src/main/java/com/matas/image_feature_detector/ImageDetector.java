@@ -112,11 +112,11 @@ class ImageDetector {
     Utils.matToBitmap(warped, b);
 
     String savePath = new File(path).getAbsoluteFile().getParent();
-    savePath += "transformed-image" + new Date().getTime() + ".png";
+    savePath += "transformed-image" + new Date().getTime() + ".jpg";
 
     try {
       FileOutputStream stream = new FileOutputStream(new File(savePath));
-      b.compress(Bitmap.CompressFormat.PNG, 100, stream);
+      b.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
       stream.flush();
       stream.close();
